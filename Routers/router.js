@@ -18,11 +18,16 @@ const router =new express.Router()
 //syntax router httprequest('path'),()......
 router.post('/user/register',usercontroller.register)
 router.post('/user/login',usercontroller.login)
+router.get('/user/alluser',jwtmiddleware,usercontroller.getallusers)
+
 //addd recipes
 router.post('/recipe/add',jwtmiddleware,multerConfig.single('fimage'),recipecontroller.addrecipe)
 //message
 router.post('/message/send',messagecontroller.send)
 router.get('/message/allmessage',jwtmiddleware,messagecontroller.getallmessage)
+router.delete('/message/remove/:id',jwtmiddleware,messagecontroller.deletemessage)
+
+
 // 
 router.get('/recipe/homerecipe',recipecontroller.gethomerecipe)
 router.get('/recipe/allrecipe',jwtmiddleware,recipecontroller.getallrecipe)

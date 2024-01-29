@@ -91,3 +91,16 @@ catch(err){
 }
 
  }
+///
+
+ exports.getallusers=async(req,res)=>{
+  
+    try{
+        const alluser=await users.find()
+        res.status(200).json(alluser)
+    }
+    catch(err){
+        res.status(401).json(`request failed due to :${err}`)
+    }
+    
+    }

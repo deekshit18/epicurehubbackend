@@ -88,3 +88,17 @@ exports.getallmessage=async(req,res)=>{
       }
       
       }
+
+
+      exports.deletemessage=async(req,res)=>{
+        const {id}=req.params
+        try{
+            const removemessage=await messages.findByIdAndDelete({_id:id})
+            res.status(200).json(removemessage)
+
+        }
+        catch(err){
+            res.status(401).json(err)
+
+        }
+    }
