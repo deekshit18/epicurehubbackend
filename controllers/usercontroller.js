@@ -5,7 +5,7 @@ const jwt=require('jsonwebtoken')
 //register request
 
 exports.register=async(req,res)=>{
-const {username,email,password}=req.body
+const {username,email,password,type}=req.body
 try{const existe=await users.findOne({email})
 if(existe){
     //unprocesssable entity
@@ -18,7 +18,7 @@ else{
         username,
         email,
         password,
-        profile:""
+        profile:"",type
 
     })
     await newuser.save()
@@ -79,10 +79,10 @@ res.status(404).json("Invalid Email or Password")
 
 exports.edituser=async(req,res)=>{
 const userid=req.payload
-const {username,email,password,profile}=req.body
+const {username,email,password,profile,type}=req.body
 const profileimg=req.file?req.file.filename:profile
 try{
-    const updateuser=await users.findByIdAndUpdate({_id:userid},{username,email,password,profile:profileimg},{new:true})
+    const updateuser=await users.findByIdAndUpdate({_id:userid},{username,email,password,profile:profileimg,type},{new:true})
     await updateuser.save()
     res.status(200).json(updateuser)
 }
@@ -103,4 +103,17 @@ catch(err){
         res.status(401).json(`request failed due to :${err}`)
     }
     
+    }
+
+    exports.deleteuser=async(req,res)=>{
+        const {id}=req.params
+        try{
+            const removeuser=await users.findByIdAndDelete({_id:id})
+            res.status(200).json(removeuser)
+
+        }
+        catch(err){
+            res.status(401).json(err)
+
+        }
     }

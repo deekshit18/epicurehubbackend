@@ -34,6 +34,7 @@ router.get('/recipe/allrecipe',jwtmiddleware,recipecontroller.getallrecipe)
 router.get('/user/recipe',jwtmiddleware,recipecontroller.getuserrecipe)
 // router.get('/user/profile:id',usercontroller.getuserprofile)
 router.put('/user/edit',jwtmiddleware,multerConfig.single('profile'),usercontroller.edituser)
+router.delete('/user/remove/:id',jwtmiddleware,usercontroller.deleteuser)
 
 //recipeedit
 router.put('/recipe/edit/:id',jwtmiddleware,multerConfig.single('fimage'),recipecontroller.edituserrecipe)

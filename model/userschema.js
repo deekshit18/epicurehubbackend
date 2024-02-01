@@ -25,6 +25,9 @@ const userschema=new mongoose.Schema({
     },
     profile:{
         type:String,
+    },type:{
+        type:String,
+        require:true
     }
 })
 //create model
