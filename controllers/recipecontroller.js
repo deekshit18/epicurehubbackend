@@ -7,8 +7,8 @@ exports.addrecipe=async(req,res)=>{
     console.log(userid);
     const fimage=req.file.filename
     console.log(fimage);
-    const {rdate,uname,uemail,profiles,fname,ingredients,instructions}=req.body
-    console.log(`${rdate},${uname},${uemail},${profiles},${fname},${fimage},${ingredients},${instructions},${userid}`);
+    const {rdate,uname,uemail,profiles,fname,ingredients,instructions,foodType}=req.body
+    console.log(`${rdate},${uname},${uemail},${profiles},${fname},${fimage},${ingredients},${instructions},${foodType},${userid}`);
     try{
     const Existingrecipe=await recipes.findOne({fimage})
     console.log(Existingrecipe); 
@@ -18,7 +18,7 @@ exports.addrecipe=async(req,res)=>{
     else{
 
         const newrecipes=new recipes({
-            rdate,uname,uemail,profiles,fname,fimage,ingredients,instructions,userid
+            rdate,uname,uemail,profiles,fname,fimage,ingredients,instructions,foodType,userid
         })
         await newrecipes.save()
         res.status(200).json(newrecipes)
@@ -80,7 +80,7 @@ exports.getallrecipe=async(req,res)=>{
             exports.edituserrecipe=async(req,res)=>{
                 const {id}=req.params
                 const userid=req.payload
-                const {rdate,uname,uemail,profiles,fname,fimage,ingredients,instructions}=req.body
+                const {rdate,uname,uemail,profiles,fname,fimage,ingredients,instructions,foodType}=req.body
                 const ufimage=req.file?req.file.filename:fimage
 
                 try{
@@ -90,7 +90,7 @@ exports.getallrecipe=async(req,res)=>{
       res.status(406).json('CopyRight Issue! Upload Another Image')  
     }
     else{
-                    const updaterecipe=await recipes.findByIdAndUpdate({_id:id},{rdate,uname,uemail,profiles,fname,fimage:ufimage,ingredients,instructions,userid},{new:true})
+                    const updaterecipe=await recipes.findByIdAndUpdate({_id:id},{rdate,uname,uemail,profiles,fname,fimage:ufimage,ingredients,instructions,foodType,userid},{new:true})
                     await updaterecipe.save()
                     res.status(200).json(updaterecipe)
                 }}

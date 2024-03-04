@@ -35,6 +35,10 @@ instructions:{
     type:String,
     require:true
 },
+foodType:{
+    type:String,
+    require:true
+},
 userid:{
     type:String,
     require:true
